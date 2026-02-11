@@ -1,1 +1,41 @@
-<!doctype html><title>WattWin</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>WattWin - Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Styles & PWA -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <meta name="theme-color" content="#2F6BFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WattWin">
+  <script>
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('service-worker.js'); }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="card" id="loginCard">
+      <div class="title">Welcome to WattWin</div>
+      <div class="subtitle">Enter your phone number to continue</div>
+      <input type="number" id="phoneInput" placeholder="Enter 10-digit phone number" />
+      <button onclick="sendOTP()">Send OTP</button>
+    </div>
+
+    <div class="card" id="otpCard" style="display:none;">
+      <div class="title">Enter OTP</div>
+      <div class="subtitle">OTP sent to your phone</div>
+      <input type="number" id="otpInput" placeholder="123456" />
+      <div class="nav">
+        <button onclick="verifyOTP()">Verify OTP</button>
+        <button class="secondary" onclick="backToLogin()">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
