@@ -1,1 +1,15 @@
-{"name":"WattWin","start_url":"index.html","display":"standalone","icons":[{"src":"assets/icon-192.png","sizes":"192x192","type":"image/png"},{"src":"assets/icon-512.png","sizes":"512x512","type":"image/png"}]}
+{
+  "name": "WattWin - Climate Bill Saver",
+  "short_name": "WattWin",
+  "description": "Pay electricity bills, reduce usage, earn rewards, and track CO₂ savings.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#2F6BFF",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
