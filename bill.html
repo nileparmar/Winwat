@@ -1,1 +1,64 @@
-<!doctype html><title>Bill</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Your Bill - WattWin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <meta name="theme-color" content="#2F6BFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WattWin">
+  <script> if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js'); } </script>
+</head>
+<body onload="loadBill()">
+  <div class="container">
+    <div class="title">Bill Details</div>
+    <div class="subtitle">Fetched using BBPS (Mock Mode)</div>
+
+    <div class="card">
+      <p><strong>Customer ID:</strong> <span id="cid"></span></p>
+      <p><strong>Amount Due:</strong> ₹<span id="amount"></span></p>
+    </div>
+
+    <div class="card">
+      <h3>Usage Summary</h3>
+      <p><strong>Previous Month:</strong> <span id="prevKwh"></span> kWh</p>
+      <p><strong>Current Month:</strong> <span id="currKwh"></span> kWh</p>
+      <p><strong>Difference:</strong> <span id="diffKwh"></span> kWh</p>
+      <div class="pill green-pill" id="co2Tag">CO₂ Saved: 0 kg</div>
+      <div class="pill blue-pill" id="pointsTag">+0 pts Reward Eligible</div>
+    </div>
+
+    <div class="nav">
+      <a href="payment.html"><button>Pay Now</button></a>
+      <a href="fetch.html"><button class="secondary">Back</button></a>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function loadBill(){
+      checkLogin();
+      const cid = localStorage.getItem('wattwin_bill_cid');
+      const prev = Number(localStorage.getItem('wattwin_bill_prev'));
+      const curr = Number(localStorage.getItem('wattwin_bill_curr'));
+      const amt  = Number(localStorage.getItem('wattwin_bill_amount'));
+      document.getElementById('cid').innerText = cid;
+      document.getElementById('amount').innerText = amt;
+
+      const stats = calculateCO2(prev, curr);
+      document.getElementById('prevKwh').innerText = prev;
+      document.getElementById('currKwh').innerText = curr;
+      document.getElementById('diffKwh').innerText = stats.diff;
+      document.getElementById('co2Tag').innerText = 'CO₂ Saved: ' + stats.co2 + ' kg';
+
+      const pts = calculatePoints(stats.pct);
+      document.getElementById('pointsTag').innerText = '+' + pts + ' pts Reward Eligible';
+      localStorage.setItem('wattwin_points_earned', pts);
+    }
+  </script>
+</body>
+</html>
