@@ -1,1 +1,62 @@
-<!doctype html><title>Home</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>WattWin - Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <meta name="theme-color" content="#2F6BFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WattWin">
+  <script> if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js'); } </script>
+</head>
+<body onload="loadHome()">
+  <div class="container">
+    <div class="title">Hello 👋</div>
+    <div class="subtitle">Welcome back to WattWin</div>
+
+    <div class="card">
+      <h3>Your Electricity Bill</h3>
+      <p id="billAmount">Amount Due: ₹1,980</p>
+      <div class="nav"><a href="fetch.html"><button>Fetch Latest Bill</button></a></div>
+      <hr/><div class="footer-note">BBPS-ready (Sandbox) — mock fetch/pay for MVP</div>
+    </div>
+
+    <div class="card">
+      <h3>This Month’s Usage</h3>
+      <p id="usageText">--</p>
+      <div class="pill green-pill" id="co2SavedTag">CO₂ Saved: -- kg</div>
+      <div class="nav"><a href="insights.html"><button class="secondary">View Insights</button></a></div>
+    </div>
+
+    <div class="card">
+      <h3>Rewards Wallet</h3>
+      <p id="pointsDisplay">Points: 520 pts</p>
+      <div class="nav"><a href="rewards.html"><button class="secondary">Redeem Rewards</button></a></div>
+    </div>
+
+    <button style="margin-top:10px" onclick="logout()">Logout</button>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function loadHome(){
+      checkLogin();
+      const amount = localStorage.getItem('wattwin_bill_amount') || 1980;
+      const prev = localStorage.getItem('wattwin_bill_prev') || 252;
+      const curr = localStorage.getItem('wattwin_bill_curr') || 218;
+
+      document.getElementById('billAmount').innerText = 'Amount Due: ₹' + amount;
+
+      const stats = calculateCO2(prev, curr);
+      document.getElementById('usageText').innerText = `${curr} kWh (↓${stats.pct}% vs last month)`;
+      document.getElementById('co2SavedTag').innerText = 'CO₂ Saved: ' + stats.co2 + ' kg';
+      document.getElementById('pointsDisplay').innerText = getPoints() + ' pts';
+    }
+    function logout(){ localStorage.clear(); window.location.href='index.html'; }
+  </script>
+</body>
+</html>
