@@ -1,1 +1,66 @@
-<!doctype html><title>Rewards</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rewards - WattWin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <meta name="theme-color" content="#2F6BFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WattWin">
+  <script> if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js'); } </script>
+</head>
+<body onload="loadRewards()">
+  <div class="container">
+    <div class="title">Rewards</div>
+    <div class="subtitle">Redeem your savings for real benefits</div>
+
+    <div class="card">
+      <h3>Your Points</h3>
+      <p><strong id="points">0</strong> pts</p>
+    </div>
+
+    <div class="card">
+      <h3>Gift Card ₹100</h3>
+      <p>Redeemable on major stores</p>
+      <p><strong>Cost:</strong> 200 pts</p>
+      <button onclick="redeemReward(200, 'Gift Card ₹100')">Redeem</button>
+    </div>
+
+    <div class="card">
+      <h3>Tree Planting</h3>
+      <p>Support reforestation projects</p>
+      <p><strong>Cost:</strong> 300 pts</p>
+      <button onclick="redeemReward(300, 'Tree Plantation')">Redeem</button>
+    </div>
+
+    <div class="card">
+      <h3>Energy Efficient LED Bulb</h3>
+      <p>Cut your future power usage</p>
+      <p><strong>Cost:</strong> 400 pts</p>
+      <button onclick="redeemReward(400, 'Energy Efficient LED')">Redeem</button>
+    </div>
+
+    <a href="home.html"><button class="secondary" style="margin-top:20px;">Back to Home</button></a>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function loadRewards(){
+      checkLogin();
+      document.getElementById('points').innerText = getPoints();
+    }
+    function redeemReward(cost, name){
+      let pts = getPoints();
+      if(pts < cost){ alert('Not enough points.'); return; }
+      setPoints(pts - cost);
+      const code = Math.random().toString(36).substring(2,10).toUpperCase();
+      alert(name + ' Redeemed!\nCode: ' + code + '\n(Mock redemption — MVP)');
+      loadRewards();
+    }
+  </script>
+</body>
+</html>
