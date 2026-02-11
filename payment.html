@@ -1,1 +1,44 @@
-<!doctype html><title>Payment</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Payment - WattWin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <meta name="theme-color" content="#2F6BFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WattWin">
+  <script> if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js'); } </script>
+</head>
+<body onload="checkLogin()">
+  <div class="container">
+    <div class="title">Payment</div>
+    <div class="subtitle">Complete your BBPS bill payment (Mock Mode)</div>
+
+    <div class="card">
+      <h3>Select Payment Method</h3>
+      <div class="nav">
+        <button onclick="mockPay()">Pay via UPI (Mock)</button>
+        <button class="secondary" onclick="mockPay()">Pay via Card (Mock)</button>
+        <button class="secondary" onclick="mockPay()">NetBanking (Mock)</button>
+      </div>
+    </div>
+
+    <a href="bill.html"><button class="secondary">Back to Bill</button></a>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function mockPay(){
+      const earned = Number(localStorage.getItem('wattwin_points_earned'));
+      let currentPts = getPoints();
+      setPoints(currentPts + earned);
+      alert('Payment Successful! +' + earned + ' reward points added.');
+      window.location.href = 'home.html';
+    }
+  </script>
+</body>
+</html>
