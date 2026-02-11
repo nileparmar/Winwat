@@ -1,1 +1,45 @@
-<!doctype html><title>Fetch</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Fetch Bill - WattWin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <meta name="theme-color" content="#2F6BFF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WattWin">
+  <script> if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js'); } </script>
+</head>
+<body onload="checkLogin()">
+  <div class="container">
+    <div class="title">Fetch Your Bill</div>
+    <div class="subtitle">BBPS Fetch (Mock Simulation)</div>
+
+    <div class="card">
+      <label>Enter Customer ID / CA Number</label>
+      <input type="number" id="cid" placeholder="e.g. 12345678" />
+      <div class="nav">
+        <button onclick="mockFetch()">BBPS Fetch (Mock)</button>
+        <a href="home.html"><button class="secondary">Back</button></a>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function mockFetch(){
+      const cid = document.getElementById('cid').value.trim();
+      if(cid.length < 4){ alert('Please enter a valid Customer ID'); return; }
+      localStorage.setItem('wattwin_bill_cid', cid);
+      localStorage.setItem('wattwin_bill_prev', 252);
+      localStorage.setItem('wattwin_bill_curr', 218);
+      localStorage.setItem('wattwin_bill_amount', 1980);
+      alert('BBPS Fetch Success (Mock). Bill Loaded.');
+      window.location.href = 'bill.html';
+    }
+  </script>
+</body>
+</html>
